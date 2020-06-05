@@ -88,7 +88,7 @@ class YoutubeSkill(CommonPlaySkill):
             tracklist.append(self.stream_url)
             self.mediaplayer.add_list(tracklist)
             self.audio_state = 'playing'
-            self.speak_dialog('now.playing', {'content': self.vid_name} )
+            self.speak_dialog('now.playing')
             wait_while_speaking()
             self.mediaplayer.play()
             return
