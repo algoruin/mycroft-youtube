@@ -50,10 +50,13 @@ class YoutubeSkill(CommonPlaySkill):
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
         self.audio_state = 'stopped'  # 'playing', 'stopped'
 
+        self.add_event('mycroft.audio.service.pause', CPS_pause)
+        self.add_event('mycroft.audio.service.resume', CPS_resume)
+
     def CPS_match_query_phrase(self, phrase):
         # Look for regex matches starting from the most specific to the least
 
-        # Play <data> on youtube
+        # Play <data>
         match = re.search(self.translate_regex('on_youtube'), phrase)
         if match:
             data = re.sub(self.translate_regex('on_youtube'), '', phrase)
@@ -65,6 +68,12 @@ class YoutubeSkill(CommonPlaySkill):
     def CPS_start(self, phrase, data):
         LOG.debug('CPS Start: ' + data)
         self.search_youtube(data)
+
+    def CPS_resume(self, phrase, data):
+        self.mediaplayer.play()
+
+    def CPS_pause(self, phrase, data):
+        self.mediaplayer.pause()
 
     # Attempt to find the first result matching the query string
     def search_youtube(self, search_term):
@@ -119,7 +128,7 @@ class YoutubeSkill(CommonPlaySkill):
         return True
 
 # these don't work (yet?)
-#
+
     def pause(self, message=None):
         if self.audio_state == 'playing':
             self.mediaplayer.pause()
