@@ -41,7 +41,7 @@ class YoutubeSkill(CommonPlaySkill):
     def __init__(self):
         super().__init__(name='YoutubeSkill')
 
-        self.audio_state = 'stopped'  # 'playing', 'stopped'
+        self.audio_state = 'stopped'  # 'playing', 'stopped', 'paused'
         self.station_name = None
         self.stream_url = None
         self.mpeg_url = None
@@ -121,16 +121,20 @@ class YoutubeSkill(CommonPlaySkill):
 # these don't work (yet?)
 #
     def pause(self, message=None):
-       self.mediaplayer.pause()
+        if self.audio_state == 'playing':
+            self.mediaplayer.pause()
+        self.audio_state = 'paused'
 
     def resume(self, message=None):
-       self.mediaplayer.pause()
+        if self.audio_state == 'paused':
+            self.mediaplayer.play()
+        self.audio_state = 'playing'
 
     def next_track(self, message):
-       self.mediaplayer.next()
+        self.mediaplayer.next()
 
     def prev_track(self, message):
-       self.mediaplayer.previous()
+        self.mediaplayer.previous()
     
     def shutdown(self):
         if self.audio_state == 'playing':
