@@ -50,8 +50,8 @@ class YoutubeSkill(CommonPlaySkill):
         self.mediaplayer = VlcService(config={'low_volume': 10, 'duck': True})
         self.audio_state = 'stopped'  # 'playing', 'stopped'
 
-        self.add_event('mycroft.audio.service.pause', CPS_pause)
-        self.add_event('mycroft.audio.service.resume', CPS_resume)
+#        self.add_event('mycroft.audio.service.pause', CPS_pause)
+#        self.add_event('mycroft.audio.service.resume', CPS_resume)
 
     def CPS_match_query_phrase(self, phrase):
         # Look for regex matches starting from the most specific to the least
