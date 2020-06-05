@@ -120,18 +120,18 @@ class YoutubeSkill(CommonPlaySkill):
 
 # these don't work (yet?)
 #
-#    def pause(self, message=None):
-#       self.mediaplayer.pause()
-#
-#    def resume(self, message=None):
-#       self.mediaplayer.pause()
-#
-#    def next_track(self, message):
-#       self.mediaplayer.next()
-#
-#    def prev_track(self, message):
-#       self.mediaplayer.previous()
+    def pause(self, message=None):
+       self.mediaplayer.pause()
 
+    def resume(self, message=None):
+       self.mediaplayer.pause()
+
+    def next_track(self, message):
+       self.mediaplayer.next()
+
+    def prev_track(self, message):
+       self.mediaplayer.previous()
+    
     def shutdown(self):
         if self.audio_state == 'playing':
             self.mediaplayer.stop()
